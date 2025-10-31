@@ -66,6 +66,25 @@ def client_tag():
 
     return render_template('audios/client_tag.html', tags_suerte=tags_suerte, tags_menos=tags_menos_grabadas, tags3=tags_aleatorio)
 
+
+
+@bp.route('/client-text')
+@login_required
+def client_text2():
+    syllabus = Syllabus()
+    # Obtenemos las 3 últimas frases ordenadas por fecha_creacion descendente
+    todos_tags = syllabus.distinct("texto",{})
+
+    # Extraemos solo el texto
+    #frases = [item.id for item in ultimas_frases]
+
+    return render_template(
+        'audios/client_text.html',
+        tags3= todos_tags[-3:][::-1]
+    )
+
+
+
 @bp.route('/client-record/<string:tag_name>')
 @login_required
 def client_record(tag_name):

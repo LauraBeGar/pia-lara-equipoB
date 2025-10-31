@@ -57,7 +57,31 @@
         </button>
     </section>
 
+    <!--section>
+        <p>Mis últimas tres frases:</p>
+        <p class="frase">"La creatividad es la inteligencia divirtiéndose."</p>
+        <p class="frase">"Cada línea de código es una oportunidad para aprender."</p>
+        <p class="frase">"El éxito se construye con pequeños pasos constantes."</p>
+    </section-->
+
+<section>
+    {% if tags3 %}
+    <div class="tags-container">
+      <fieldset>
+        <legend>3 últimas frases</legend>
+        {% for tag in tags3 %}
+          <a class="frase" >{{ tag }}</a>
+        </br>
+        {% endfor %}
+      </fieldset>
+    </div>
+    {% endif %}
+</section>
+
     <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
     <script src="{{ url_for('static', filename='js/speech-synthesis.js') }}"></script>
     <script src="{{ url_for('static', filename='js/speech-recording.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ultimas_frases.js') }}"></script>
+
+
 {% endblock %}
