@@ -162,6 +162,11 @@ body.contrast-3 button {
   padding: 1rem;
 }
 
+.ult_frases {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.4rem;
+}
 
 .syllabus {
   width: 50rem;

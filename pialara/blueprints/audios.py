@@ -66,6 +66,29 @@ def client_tag():
 
     return render_template('audios/client_tag.html', tags_suerte=tags_suerte, tags_menos=tags_menos_grabadas, tags3=tags_aleatorio)
 
+
+@bp.route('/client-text')
+@login_required
+def ultimas_tres_frases():
+    audios = Audios()
+    user_id = current_user.id  
+
+    # Con    'ultimos_docs = list(audios.find('   da el error:
+    # TypeError: MongoModel.find() takes from 1 to 2 positional arguments but 3 were given
+    # Así que usamos:
+    ultimos_docs = list(audios.db[audios.collection_name].find(
+        {"usuario.id": user_id}, 
+        {"texto.texto": 1}
+     ).sort("fecha", -1).limit(3))
+    
+    ultimas_frases = [doc["texto"]["texto"] for doc in ultimos_docs]
+
+    return render_template(
+        'audios/client_text.html',
+        tags_ult_frases=ultimas_frases
+    )
+
+
 @bp.route('/client-record/<string:tag_name>')
 @login_required
 def client_record(tag_name):
@@ -169,7 +192,7 @@ def select_random_item(syllabus_items):
 @login_required
 def client_text():
     return render_template('audios/client_text.html')
-    
+
 
 @bp.route('/save-record', methods=['POST'])
 @login_required
